@@ -24,8 +24,16 @@ export async function createRandomFile(contents: string | Uint8Array = '', dir: 
 	} else {
 		fakeFile = vscode.Uri.parse(`${testFs.scheme}:/${rndName() + ext}`);
 	}
-	testFs.writeFile(fakeFile, Buffer.from(contents), { create: true, overwrite: true });
+	testFs.writeFile(fakeFile, toBuffer(contents), { create: true, overwrite: true });
 	return fakeFile;
+}
+
+function toBuffer(data: string | Uint8Array): Buffer {
+	if (typeof data === 'string') {
+		return Buffer.from(data);
+	} else {
+		return Buffer.from(data.buffer);
+	}
 }
 
 export async function deleteFile(file: vscode.Uri): Promise<boolean> {
