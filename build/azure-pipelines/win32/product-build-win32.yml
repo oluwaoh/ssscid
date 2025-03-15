@@ -248,6 +248,7 @@ steps:
         displayName: Get product version
 
       - powershell: |
+          ls ..\
           ls ..\VSCode-win32-$(VSCODE_ARCH)
           ls ..\vscode-server-win32-$(VSCODE_ARCH)
           ls ..\vscode-server-win32-$(VSCODE_ARCH)-web
@@ -309,6 +310,13 @@ steps:
         condition: and(succeededOrFailed(), notIn(variables['Agent.JobStatus'], 'Succeeded', 'SucceededWithIssues'))
         displayName: Generate artifact prefix
 
+      - powershell: |
+          ls ..\
+          ls ..\VSCode-win32-$(VSCODE_ARCH)
+          ls ..\vscode-server-win32-$(VSCODE_ARCH)
+          ls ..\vscode-server-win32-$(VSCODE_ARCH)-web
+        displayName: List some files (2)
+
       - task: 1ES.PublishPipelineArtifact@1
         inputs:
           targetPath: $(CLIENT_PATH)
@@ -318,6 +326,13 @@ steps:
           sbomPackageVersion: $(Build.SourceVersion)
         condition: and(succeededOrFailed(), ne(variables['CLIENT_PATH'], ''))
         displayName: Publish archive
+
+      - powershell: |
+          ls ..\
+          ls ..\VSCode-win32-$(VSCODE_ARCH)
+          ls ..\vscode-server-win32-$(VSCODE_ARCH)
+          ls ..\vscode-server-win32-$(VSCODE_ARCH)-web
+        displayName: List some files (3)
 
       - task: 1ES.PublishPipelineArtifact@1
         inputs:
@@ -329,6 +344,13 @@ steps:
         condition: and(succeededOrFailed(), ne(variables['SERVER_PATH'], ''))
         displayName: Publish server archive
 
+      - powershell: |
+          ls ..\
+          ls ..\VSCode-win32-$(VSCODE_ARCH)
+          ls ..\vscode-server-win32-$(VSCODE_ARCH)
+          ls ..\vscode-server-win32-$(VSCODE_ARCH)-web
+        displayName: List some files (4)
+
       - task: 1ES.PublishPipelineArtifact@1
         inputs:
           targetPath: $(WEB_PATH)
@@ -338,6 +360,13 @@ steps:
           sbomPackageVersion: $(Build.SourceVersion)
         condition: and(succeededOrFailed(), ne(variables['WEB_PATH'], ''))
         displayName: Publish web server archive
+
+      - powershell: |
+          ls ..\
+          ls ..\VSCode-win32-$(VSCODE_ARCH)
+          ls ..\vscode-server-win32-$(VSCODE_ARCH)
+          ls ..\vscode-server-win32-$(VSCODE_ARCH)-web
+        displayName: List some files (5)
 
       - task: 1ES.PublishPipelineArtifact@1
         inputs:
